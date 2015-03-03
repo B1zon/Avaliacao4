@@ -37,22 +37,29 @@ public class Agenda {
     }
     
     public void novoAviso(Compromisso compromisso, int antecedencia) {
-
+         Aviso aviso = new Aviso(compromisso);
+         compromisso.registraAviso(aviso);
+         timer.schedule(aviso, antecedencia);
     }
     
     public void novoAviso(Compromisso compromisso, int antecedencia, int intervalo) {
-    
+         Aviso aviso = new Aviso(compromisso);
+         compromisso.registraAviso(aviso);
+         timer.schedule(aviso, antecedencia, intervalo);
     }
     
     public void cancela(Compromisso compromisso) {
-
+         compromissos.remove(compromisso);
+         compromisso.getAvisos().clear();
     }
     
     public void cancela(Aviso aviso) {
-    
+         compromissos.remove(aviso);
+         aviso.cancel();
+   
     }
     
     public void destroi() {
-    
+         timer.cancel();
     }
 }
